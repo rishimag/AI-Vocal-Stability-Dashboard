@@ -132,4 +132,4 @@ if my_y is not None:
         st.error("Error: Could not isolate a stable voice pitch. Please get closer to your microphone and repeat the note.")
 
 st.markdown("---")
-st.caption("⚠️ **MEDICAL DISCLAIMER:** This dashboard is an educational proof-of-concept. It does not replace clinical consultation, nor does it diagnose medical conditions.")conditions.")ns.")
+st.caption("⚠️ **MEDICAL DISCLAIMER:** This dashboard is an educational proof-of-concept. It does not replace clinical consultation, nor does it diagnose medical conditions.")
