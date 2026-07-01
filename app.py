@@ -19,10 +19,11 @@ def load_and_train_ai():
     df = pd.DataFrame(parkinsons.data.features)
     df['status'] = parkinsons.data.targets
     
-    # Deduplicate columns to avoid Narwhals crash
+    # 🛠️ THE FIX: Deduplicate identical headers safely using len() to avoid TypeError!
     cols = pd.Series(df.columns)
     for dup in cols[cols.duplicated()].unique():
-        cols[cols == dup] = [f"{dup}_{i}" if i != 0 else dup for i in range(cols[cols == dup].shape)]
+        count = len(cols[cols == dup])
+        cols[cols == dup] = [f"{dup}_{i}" if i != 0 else dup for i in range(count)]
     df.columns = cols
     
     X_all = df.drop(columns=[col for col in ['status', 'name'] if col in df.columns])
@@ -90,8 +91,8 @@ if my_y is not None:
             my_custom_row['MDVP:Shimmer'] = my_shimmer
             
             probabilities = optimized_model.predict_proba(my_custom_row)
-            healthy_confidence = probabilities[0][0] * 100
-            clinical_confidence = probabilities[0][1] * 100
+            healthy_confidence = probabilities[0] * 100
+            clinical_confidence = probabilities[0] * 100
             
             st.subheader("🛡️ Probability Decision Matrix")
             st.write(f"• Healthy Group Match: **{healthy_confidence:.2f}%**")
@@ -121,8 +122,8 @@ if my_y is not None:
             
             ax.set_title("Vocal Frequency Perturbation Distribution")
             ax.set_xlabel("Absolute Jitter Values (Micro-Tremor Level)")
-            ax.set_yticks([0, 1])
-            ax.set_yticklabels(['Healthy Range', 'Affected Range'])
+            ax.set_yticks([])
+            ax.set_yticklabels([])
             ax.legend()
             st.pyplot(fig)
             
