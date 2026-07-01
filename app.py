@@ -35,7 +35,7 @@ def load_and_train_ai():
 
 optimized_model, X_all, y_all, raw_df = load_and_train_ai()
 
-# --- THE CORNERSTONES: REAL LIVE INPUT ---
+# --- PATIENT INPUT INTERFACE ---
 st.header("🎛️ Patient Recording & Input Interface")
 st.markdown("Choose to either upload a pre-recorded audio file, use library benchmarks, or record your voice live:")
 
@@ -73,7 +73,7 @@ if my_y is not None:
         my_jitter = np.mean(np.abs(np.diff(clean_pitches)))
         my_shimmer = np.mean(np.abs(np.diff(clean_rms)))
         
-        # 📊 SPLIT SCREEN LAYOUT FOR GRAPHICAL PROOF
+        # SPLIT SCREEN LAYOUT FOR GRAPHICAL PROOF
         col1, col2 = st.columns(2)
         
         with col1:
@@ -128,3 +128,7 @@ if my_y is not None:
             
             st.markdown("💡 **Acoustic Explanation:** If your gold star falls to the far left, your voice has low variation. If it trends to the right, ambient room static or microphone reflections are increasing the perturbation metric.")
     else:
+        st.error("Error: Could not isolate a stable voice pitch. Please get closer to your microphone and repeat the note.")
+
+st.markdown("---")
+st.caption("⚠️ **MEDICAL DISCLAIMER:** This dashboard is an educational proof-of-concept. It does not replace clinical consultation, nor does it diagnose medical conditions.")
