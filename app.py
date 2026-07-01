@@ -90,7 +90,6 @@ if my_y is not None:
             my_custom_row['MDVP:Jitter'] = my_jitter
             my_custom_row['MDVP:Shimmer'] = my_shimmer
             
-            # 🛠️ THE PLUG: Grab array elements directly using [0] index to avoid text formatting crashes!
             probabilities = optimized_model.predict_proba(my_custom_row)[0]
             healthy_confidence = probabilities[0] * 100
             clinical_confidence = probabilities[1] * 100
@@ -133,4 +132,4 @@ if my_y is not None:
         st.error("Error: Could not isolate a stable voice pitch. Please get closer to your microphone and repeat the note.")
 
 st.markdown("---")
-st.caption("⚠️ **MEDICAL DISCLAIMER:** This dashboard is an educational proof-of-concept. It does not replace clinical consultation, nor does it diagnose medical conditions.")ns.")
+st.caption("⚠️ **MEDICAL DISCLAIMER:** This dashboard is an educational proof-of-concept. It does not replace clinical consultation, nor does it diagnose medical conditions.")conditions.")ns.")
