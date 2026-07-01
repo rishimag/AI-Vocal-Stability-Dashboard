@@ -19,7 +19,7 @@ def load_and_train_ai():
     df = pd.DataFrame(parkinsons.data.features)
     df['status'] = parkinsons.data.targets
     
-    # 🛠️ THE FIX: Deduplicate identical headers safely using len() to avoid TypeError!
+    # Deduplicate identical headers safely using len() to avoid TypeError!
     cols = pd.Series(df.columns)
     for dup in cols[cols.duplicated()].unique():
         count = len(cols[cols == dup])
@@ -90,9 +90,10 @@ if my_y is not None:
             my_custom_row['MDVP:Jitter'] = my_jitter
             my_custom_row['MDVP:Shimmer'] = my_shimmer
             
-            probabilities = optimized_model.predict_proba(my_custom_row)
+            # 🛠️ THE PLUG: Grab array elements directly using [0] index to avoid text formatting crashes!
+            probabilities = optimized_model.predict_proba(my_custom_row)[0]
             healthy_confidence = probabilities[0] * 100
-            clinical_confidence = probabilities[0] * 100
+            clinical_confidence = probabilities[1] * 100
             
             st.subheader("🛡️ Probability Decision Matrix")
             st.write(f"• Healthy Group Match: **{healthy_confidence:.2f}%**")
@@ -132,4 +133,4 @@ if my_y is not None:
         st.error("Error: Could not isolate a stable voice pitch. Please get closer to your microphone and repeat the note.")
 
 st.markdown("---")
-st.caption("⚠️ **MEDICAL DISCLAIMER:** This dashboard is an educational proof-of-concept. It does not replace clinical consultation, nor does it diagnose medical conditions.")
+st.caption("⚠️ **MEDICAL DISCLAIMER:** This dashboard is an educational proof-of-concept. It does not replace clinical consultation, nor does it diagnose medical conditions.")ns.")
